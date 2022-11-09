@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "131547891962",
+    "project_id": "today-diary-69b6d",
+    "storage_bucket": "today-diary-69b6d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131547891962:android:b0d16dc235b50185b3e143",
+        "android_client_info": {
+          "package_name": "com.prosoft.todaydiary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "131547891962-ll05qbe6nun9r13t1nslhr062ak0rk7n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1zbbKev-mf0sizNpEoia9RXeTl2oHaZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "131547891962-ll05qbe6nun9r13t1nslhr062ak0rk7n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

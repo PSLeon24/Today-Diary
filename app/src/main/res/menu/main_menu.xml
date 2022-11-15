@@ -6,4 +6,7 @@
     <item
         android:id="@+id/resetPin"
         android:title="PIN 재설정"></item>
+    <item
+        android:id="@+id/resetName"
+        android:title="이름 재설정"></item>
 </menu>

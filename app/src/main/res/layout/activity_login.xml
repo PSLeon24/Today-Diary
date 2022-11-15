@@ -4,13 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
-    </LinearLayout>
+    android:orientation="vertical"
+    android:background="#ADC2A9">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,16 +13,24 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="320dp"
+            android:src="@drawable/logo" />
+
         <EditText
             android:id="@+id/pinNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="35dp"
-            android:ems="4"
+            android:layout_margin="25dp"
+            android:maxLength="4"
             android:hint="4자리 숫자를 입력하세요."
+            android:textColorHint="#000000"
+            android:textColor="#000000"
             android:lines="3"
             android:textAlignment="center"
+            android:fontFamily="@font/hmbs"
             android:textSize="20dp" />
 
         <TextView
@@ -36,14 +39,35 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="20dp"
-            android:text="PIN 번호를 입력하세요. (초기 PIN: 0000)" />
+            android:text="PIN 번호를 입력하세요. (초기 PIN: 0000)"
+            android:fontFamily="@font/hmbs"
+            android:textColor="#000000"/>
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
+            android:layout_marginBottom="10dp"
+            android:padding="15dp"
+            android:fontFamily="@font/hmbs"
+            android:background="#000000"
+            android:textAlignment="center"
             android:text="로그인" />
+        <Button
+            android:id="@+id/btnFindPin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
+            android:padding="15dp"
+            android:fontFamily="@font/hmbs"
+            android:background="#000000"
+            android:textAlignment="center"
+            android:text="PIN 찾기" />
     </LinearLayout>
 
 </LinearLayout>

@@ -3,10 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.2538472493489583" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.271875" />
+        <entry key="app/src/main/res/font-v26/font.xml" value="0.3020833333333333" />
+        <entry key="app/src/main/res/font/font.xml" value="0.30104166666666665" />
+        <entry key="app/src/main/res/layout/active_write.xml" value="0.2500213623046875" />
+        <entry key="app/src/main/res/layout/activity_diary.xml" value="0.17255434782608695" />
+        <entry key="app/src/main/res/layout/activity_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.22387084960937503" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.27110290527343744" />
+        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.2708333333333333" />
+        <entry key="app/src/main/res/layout/find_pin_dialog.xml" value="0.2708333333333333" />
+        <entry key="app/src/main/res/layout/layout.xml" value="0.271875" />
+        <entry key="app/src/main/res/layout/listview_item.xml" value="0.17620137532552077" />
         <entry key="app/src/main/res/layout/reset_pin_dialog.xml" value="0.13171225937183384" />
+        <entry key="app/src/main/res/layout/set_user_name.xml" value="0.2708333333333333" />
         <entry key="app/src/main/res/menu/main_menu.xml" value="0.271875" />
+        <entry key="app/src/main/res/menu/save_menu.xml" value="0.271875" />
       </map>
     </option>
   </component>

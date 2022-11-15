@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#99A799">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2022년 11월 13일"
+        android:id="@+id/writeDay"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_weight="0.1"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="내용을 입력하세요."
+        android:id="@+id/edtDiary"
+        android:textColorHint="#808080"
+        android:textColor="@color/black"
+        android:layout_margin="15dp"
+        android:background="#FEF5ED"
+        android:padding="20dp"
+        android:gravity="top"
+        android:layout_weight="9.9"/>
+
+</LinearLayout>

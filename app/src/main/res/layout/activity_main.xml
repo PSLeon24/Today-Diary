@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:padding="20dp"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#ADC2A9">
 
     <TextView
         android:id="@+id/tv_text"
@@ -14,33 +15,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textColor="@color/black"
+        android:fontFamily="@font/cafeclassic"
         android:text="날짜를 선택해주세요."/>
-
+    <TextView
+        android:id="@+id/tv_text2"
+        android:textSize="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:fontFamily="@font/cafeclassic"
+        android:gravity="center"/>
     <TextView
         android:id="@+id/header_title"
-        android:text="고영민님의 Secret Diary"
+        android:text="Secret Diary"
         android:textSize="20dp"
         android:gravity="center"
+        android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <CalendarView
         android:id="@+id/CalView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:unfocusedMonthDateColor="@color/black"
+        />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:id="@+id/contextEditText"
-        android:lines="5"
-        android:hint="내용을 입력하세요."
-        android:visibility="invisible"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/contextDiary"
         android:visibility="invisible"/>
-
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:id="@+id/newWrite"
+        android:background="#000000"
+        android:textAlignment="center"
+        android:padding="10dp"
+        android:text="새 일기 작성하기" />
 </LinearLayout>

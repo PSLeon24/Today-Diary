@@ -28,10 +28,16 @@ public class MainActivity extends AppCompatActivity {
 
     String fileName;   //  fileName - 돌고 도는 선택된 날짜의 파일 이름
     CalendarView CalView;
-    TextView tv_text, tv_text2, header_title;
+    TextView tv_text, tv_text2, tv_text3, header_title;
     EditText dlgReset1, dlgReset2, hintPass, dlgName, contextDiary;
     View dialogView;
-    Button newWrite;
+    Button newWrite,delDiary;
+
+    // 뒤로가기 막기
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,37 +45,53 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("오늘, 하루");
 
+        CalView = (CalendarView) findViewById(R.id.CalView);
+        tv_text = (TextView) findViewById(R.id.tv_text);
+        tv_text2 = (TextView) findViewById(R.id.tv_text2);
+        tv_text3 = (TextView) findViewById(R.id.tv_text3);
+        header_title = (TextView) findViewById(R.id.header_title);
+        newWrite = (Button) findViewById(R.id.newWrite);
+        delDiary = (Button) findViewById(R.id.delDiary);
+        contextDiary = (EditText) findViewById(R.id.contextDiary);
+
+
         // 오늘 날짜를 받게해주는 Calender 친구들
         Calendar c = Calendar.getInstance();
         int cYear = c.get(Calendar.YEAR);
         int cMonth = c.get(Calendar.MONTH);
         int cDay = c.get(Calendar.DAY_OF_MONTH);
-        // 첫 시작 시에는 오늘 날짜 일기 읽어주기
-        //checkedDay(cYear, cMonth, cDay);
+        // 첫 시작 시 오늘 날짜 일기 읽어주기
+        checkedDay(cYear, cMonth, cDay);
+        tv_text3.setText(cYear + "년 " + (cMonth+1) + "월 " + cDay + "일");
 
-        CalView = (CalendarView) findViewById(R.id.CalView);
-        tv_text = (TextView) findViewById(R.id.tv_text);
-        tv_text2 = (TextView) findViewById(R.id.tv_text2);
-        header_title = (TextView) findViewById(R.id.header_title);
-        newWrite = (Button) findViewById(R.id.newWrite);
-        contextDiary = (EditText) findViewById(R.id.contextDiary);
+        // 일기삭제 부분 (나중에 다이얼로그로 정말로 삭제하시겠습니까? 창 출력하도록
+        delDiary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                delDialog();
+            }
+        });
 
         // 새 일기 작성
         newWrite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (newWrite.getText().toString().equals("수정하기")) {
-                    try {
-                        FileOutputStream outFs = openFileOutput(fileName,
-                                Context.MODE_PRIVATE);
-                        String str = contextDiary.getText().toString();
-                        outFs.write(str.getBytes());
-                        outFs.close();
-                        Toast.makeText(getApplicationContext(), "일기 내용을 수정하였습니다.",
-                                Toast.LENGTH_SHORT).show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                if (newWrite.getText().toString().equals("읽기 & 수정")) {
+                    Intent intent = new Intent(getApplicationContext(), WriteActivity.class);
+                    intent.putExtra("years", tv_text.getText().toString());
+                    intent.putExtra("monthdays", tv_text2.getText().toString());
+                    startActivity(intent);
+//                    try {
+//                        FileOutputStream outFs = openFileOutput(fileName,
+//                                Context.MODE_PRIVATE);
+//                        String str = contextDiary.getText().toString();
+//                        outFs.write(str.getBytes());
+//                        outFs.close();
+//                        Toast.makeText(getApplicationContext(), "일기 내용을 수정하였습니다.",
+//                                Toast.LENGTH_SHORT).show();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
                 } else {
                     Intent intent = new Intent(getApplicationContext(), WriteActivity.class);
                     intent.putExtra("years", tv_text.getText().toString());
@@ -86,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             inFs.read(user);
             String name = new String(user);
             inFs.close();
-            header_title.setText(name + " Secret Diary");
+            header_title.setText(name + "'s Secret Diary");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -99,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
                 tv_text.setText(year + "년");
                 tv_text2.setText((month + 1) + "월 " + day + "일");
+                tv_text3.setText(year + "년 " + (month+1) + "월 " + day + "일");
                 fileName = Integer.toString(year) + Integer.toString(month+1) + Integer.toString(day) + ".txt";
                 //Toast.makeText(getApplicationContext(),fileName,Toast.LENGTH_SHORT).show();
                 String str = readDiary(fileName);
@@ -119,22 +142,56 @@ public class MainActivity extends AppCompatActivity {
             inFs.read(txt);
             inFs.close();
             diaryStr = (new String(txt)).trim();
-            contextDiary.setVisibility(View.VISIBLE);
-            newWrite.setText("수정하기");
+            if(diaryStr.equals("")) {
+                contextDiary.setVisibility(View.INVISIBLE);
+                newWrite.setText("새 일기 작성하기");
+                delDiary.setVisibility(View.INVISIBLE);
+            } else {
+                contextDiary.setEnabled(false);
+                contextDiary.setVisibility(View.VISIBLE);
+                newWrite.setText("읽기 & 수정");
+                delDiary.setVisibility(View.VISIBLE);
+            }
         } catch (IOException e) {
             contextDiary.setVisibility(View.INVISIBLE);
             newWrite.setText("새 일기 작성하기");
+            delDiary.setVisibility(View.INVISIBLE);
             e.printStackTrace();
         }
         return diaryStr;
     }
 
     // 일기 파일 읽기
-    //private void checkedDay(int year, int month, int day) {
+    void checkedDay(int year, int month, int day) {
         // 받은 날짜로 날짜 보여주기
-        //tv_text.setText(year + "년");
-        //tv_text2.setText((month + 1) + "월 " + day + "일");
-    //}
+        tv_text.setText(year + "년");
+        tv_text2.setText((month + 1) + "월 " + day + "일");
+        fileName = Integer.toString(year) + Integer.toString(month+1) + Integer.toString(day) + ".txt";
+        FileInputStream fis = null;
+        try {
+            fis = openFileInput(fileName);
+
+            byte[] fileData = new byte[fis.available()];
+            fis.read(fileData);
+            fis.close();
+
+            String str = readDiary(fileName);
+            if(str.equals("")) {
+                contextDiary.setVisibility(View.INVISIBLE);
+                newWrite.setText("새 일기 작성하기");
+                delDiary.setVisibility(View.INVISIBLE);
+            } else {
+                contextDiary.setText(str);
+                newWrite.setText("읽기 & 수정");
+            }
+        } catch (Exception e) { // UnsupportedEncodingException , FileNotFoundException , IOException
+            // 없어서 오류가 나면 일기가 없는 것 -> 일기를 쓰게 한다.
+            //Toast.makeText(getApplicationContext(), "작성한 일기가 없습니다!", Toast.LENGTH_SHORT).show();
+            contextDiary.setText("");
+            newWrite.setText("새 일기 작성하기");
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -237,5 +294,38 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return false;
+    }
+
+    void delDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("일기 삭제").setMessage("정말로 일기를 삭제하시겠습니까?");
+        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                try {// 여기부터
+                    FileOutputStream outFs = openFileOutput(fileName,
+                            Context.MODE_PRIVATE);
+                    String str = "";
+                    outFs.write(str.getBytes());
+                    outFs.close();
+                    contextDiary.setText("");
+                    contextDiary.setVisibility(View.INVISIBLE);
+                    delDiary.setVisibility(View.INVISIBLE);
+                    newWrite.setText("새 일기 작성하기");
+                    Toast.makeText(getApplicationContext(), "일기를 삭제하였습니다!",
+                            Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }//
+            }
+        });
+        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(),"취소하셨습니다!", Toast.LENGTH_LONG).show();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,7 +13,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.Year;
 
 public class WriteActivity extends AppCompatActivity {
@@ -41,8 +44,30 @@ public class WriteActivity extends AppCompatActivity {
         fnames = writeDay.getText().toString();
         fnames = fnames.replaceAll("[^0-9]",""); // 한글 제외(정규표현식)
         fileName = fnames + ".txt";
+        String str = readDiary(fileName);
+        edtDiary.setText(str);
         //Toast.makeText(getApplicationContext(), fnames, Toast.LENGTH_LONG).show();
     }
+
+    String readDiary(String fName) {
+        String diaryStr = null;
+        FileInputStream inFs;
+        try {
+            inFs = openFileInput(fName);
+            byte[] txt = new byte[500];
+            inFs.read(txt);
+            inFs.close();
+            diaryStr = (new String(txt)).trim();
+            if(diaryStr.equals("")) { // 일기가 없을 때
+            } else { // 있을 때
+                setTitle("일기 읽기 & 수정");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return diaryStr;
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

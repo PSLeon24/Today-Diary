@@ -33,9 +33,16 @@ public class MainActivity extends AppCompatActivity {
     View dialogView;
     Button newWrite,delDiary;
 
-    // 뒤로가기 막기
+    // 뒤로가기
+    private long backpressedTime = 0;
     @Override
     public void onBackPressed() {
+        if (System.currentTimeMillis() > backpressedTime + 2000) {
+            backpressedTime = System.currentTimeMillis();
+            Toast.makeText(this, "\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        } else if (System.currentTimeMillis() <= backpressedTime + 2000) {
+            finish();
+        }
         //super.onBackPressed();
     }
 
@@ -81,17 +88,6 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("years", tv_text.getText().toString());
                     intent.putExtra("monthdays", tv_text2.getText().toString());
                     startActivity(intent);
-//                    try {
-//                        FileOutputStream outFs = openFileOutput(fileName,
-//                                Context.MODE_PRIVATE);
-//                        String str = contextDiary.getText().toString();
-//                        outFs.write(str.getBytes());
-//                        outFs.close();
-//                        Toast.makeText(getApplicationContext(), "일기 내용을 수정하였습니다.",
-//                                Toast.LENGTH_SHORT).show();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
                 } else {
                     Intent intent = new Intent(getApplicationContext(), WriteActivity.class);
                     intent.putExtra("years", tv_text.getText().toString());
@@ -302,21 +298,12 @@ public class MainActivity extends AppCompatActivity {
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                try {// 여기부터
-                    FileOutputStream outFs = openFileOutput(fileName,
-                            Context.MODE_PRIVATE);
-                    String str = "";
-                    outFs.write(str.getBytes());
-                    outFs.close();
-                    contextDiary.setText("");
-                    contextDiary.setVisibility(View.INVISIBLE);
-                    delDiary.setVisibility(View.INVISIBLE);
-                    newWrite.setText("새 일기 작성하기");
-                    Toast.makeText(getApplicationContext(), "일기를 삭제하였습니다!",
-                            Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }//
+                deleteFile(fileName);
+                contextDiary.setText("");
+                contextDiary.setVisibility(View.INVISIBLE);
+                delDiary.setVisibility(View.INVISIBLE);
+                newWrite.setText("새 일기 작성하기");
+                Toast.makeText(getApplicationContext(), "일기를 삭제하였습니다!", Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {

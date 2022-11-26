@@ -156,6 +156,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "초기 비밀번호인 0000입니다!", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

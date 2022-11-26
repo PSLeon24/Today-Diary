@@ -1,7 +1,10 @@
 package com.prosoft.todaydiary;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,7 +15,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -46,7 +52,6 @@ public class WriteActivity extends AppCompatActivity {
         fileName = fnames + ".txt";
         String str = readDiary(fileName);
         edtDiary.setText(str);
-        //Toast.makeText(getApplicationContext(), fnames, Toast.LENGTH_LONG).show();
     }
 
     String readDiary(String fName) {
@@ -54,10 +59,12 @@ public class WriteActivity extends AppCompatActivity {
         FileInputStream inFs;
         try {
             inFs = openFileInput(fName);
-            byte[] txt = new byte[500];
+            byte[] txt = new byte[inFs.available()];
+            //byte[] txt = new byte[500];
             inFs.read(txt);
-            inFs.close();
+
             diaryStr = (new String(txt)).trim();
+            inFs.close();
             if(diaryStr.equals("")) { // 일기가 없을 때
             } else { // 있을 때
                 setTitle("일기 읽기 & 수정");
@@ -88,17 +95,17 @@ public class WriteActivity extends AppCompatActivity {
     }
 
     // 일기 저장하는 메소드
-    private void saveDiary(String readDay) {
+    private void saveDiary(String fileName) {
 
         FileOutputStream fos = null;
 
         try {
-            fos = openFileOutput(readDay, MODE_NO_LOCALIZED_COLLATORS); //MODE_WORLD_WRITEABLE
+            fos = openFileOutput(fileName, MODE_NO_LOCALIZED_COLLATORS); //MODE_WORLD_WRITEABLE
             String content = edtDiary.getText().toString();
 
             // String.getBytes() = 스트링을 배열형으로 변환?
             fos.write(content.getBytes());
-            //fos.flush();
+            fos.flush();
             fos.close();
 
             // getApplicationContext() = 현재 클래스.this ?

@@ -2,7 +2,6 @@ package com.prosoft.todaydiary;
 
 public class ListItem {
     private String nameList;
-    private String shapeList;
     private String contentsList;
 
     public String getName() {
@@ -13,14 +12,6 @@ public class ListItem {
         this.nameList = name;
     }
 
-    public String getShapeList() {
-        return shapeList;
-    }
-
-    public void setShapeList(String shapeList) {
-        this.shapeList = shapeList;
-    }
-
     public String getContentsList() {
         return contentsList;
     }
@@ -29,9 +20,8 @@ public class ListItem {
         this.contentsList = contentsList;
     }
 
-    ListItem(String nameList, String shapeList, String contentsList) {
+    ListItem(String nameList, String contentsList) {
         this.nameList = nameList;
-        this.shapeList = shapeList;
         this.contentsList = contentsList;
     }
 }

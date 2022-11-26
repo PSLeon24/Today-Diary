@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.TodayDiary" parent="Theme.AppCompat">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#D3E4CD</item>
+        <item name="colorPrimary">#99A799</item>
         <item name="colorPrimaryVariant">#D3E4CD</item>
         <item name="colorOnPrimary">#000000</item>
         <!-- Secondary brand color. -->

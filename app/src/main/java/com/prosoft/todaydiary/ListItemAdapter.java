@@ -5,14 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 public class ListItemAdapter extends BaseAdapter {
-    ArrayList<ListItem> items = new ArrayList<ListItem>();
+    public ArrayList<ListItem> items = new ArrayList<ListItem>();
     Context context;
 
     @Override
@@ -42,12 +40,10 @@ public class ListItemAdapter extends BaseAdapter {
         }
         //화면에 보여질 데이터 참조
         TextView nameList = convertView.findViewById(R.id.nameList);
-        ImageView shapeList = convertView.findViewById(R.id.shapeList);
         TextView contentsList = convertView.findViewById(R.id.contentsList);
 
         // data 를 set
         nameList.setText(listItem.getName());
-        //shapeList.setBackgroundColor(listItem.getShapeList());
         contentsList.setText(listItem.getContentsList());
 
         return convertView;

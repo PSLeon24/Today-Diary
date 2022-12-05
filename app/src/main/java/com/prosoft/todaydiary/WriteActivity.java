@@ -1,28 +1,19 @@
 package com.prosoft.todaydiary;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.time.Year;
 
 public class WriteActivity extends AppCompatActivity {
 
@@ -60,7 +51,6 @@ public class WriteActivity extends AppCompatActivity {
         try {
             inFs = openFileInput(fName);
             byte[] txt = new byte[inFs.available()];
-            //byte[] txt = new byte[500];
             inFs.read(txt);
 
             diaryStr = (new String(txt)).trim();
@@ -103,12 +93,10 @@ public class WriteActivity extends AppCompatActivity {
             fos = openFileOutput(fileName, MODE_NO_LOCALIZED_COLLATORS); //MODE_WORLD_WRITEABLE
             String content = edtDiary.getText().toString();
 
-            // String.getBytes() = 스트링을 배열형으로 변환?
             fos.write(content.getBytes());
             fos.flush();
             fos.close();
 
-            // getApplicationContext() = 현재 클래스.this ?
             Toast.makeText(getApplicationContext(), "일기를 저장했습니다.", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);

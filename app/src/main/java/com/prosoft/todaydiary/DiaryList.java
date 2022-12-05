@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -53,9 +52,16 @@ public class DiaryList extends AppCompatActivity {
                     fileName = files[i].getName();
                     extName = fileName;
                     fileName = fileName.replaceAll(".txt", "");
-                    fYear = fileName.substring(0,4);
-                    fMonth = fileName.substring(4,6);
-                    fDay = fileName.substring(6,8);
+                    if(fileName.length()==7){
+                        fYear = fileName.substring(0,4);
+                        fMonth = fileName.substring(4,6);
+                        fDay = fileName.substring(6,7);
+                    } else {
+                        fYear = fileName.substring(0,4);
+                        fMonth = fileName.substring(4,6);
+                        fDay = fileName.substring(6,8);
+                    }
+
                     try{
                         FileInputStream inFs = openFileInput(extName);
                         byte[] txt = new byte[60];
@@ -79,9 +85,15 @@ public class DiaryList extends AppCompatActivity {
                 String datas = selectedItem.getName();
                 Toast.makeText(getApplicationContext(), datas, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), WriteActivity.class);
-                intent.putExtra("years", datas.substring(0,5));
-                intent.putExtra("monthdays", datas.substring(6,13));
-                startActivity(intent);
+                if(datas.length()==13) {
+                    intent.putExtra("years", datas.substring(0, 5));
+                    intent.putExtra("monthdays", datas.substring(6, 13));
+                    startActivity(intent);
+                } else {
+                    intent.putExtra("years", datas.substring(0, 5));
+                    intent.putExtra("monthdays", datas.substring(6, 12));
+                    startActivity(intent);
+                }
             }
         });
 
@@ -90,7 +102,7 @@ public class DiaryList extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView parent, View v, int position, long id){
                 ListItem selectedItem = (ListItem) adapter.getItem(position);
                 String datas = selectedItem.getName();
-                String datasName = datas.substring(0,4) + datas.substring(6,8) + datas.substring(10,12) + ".txt";
+                String datasName = datas.substring(0,4) + datas.substring(6,8) + datas.substring(10,datas.length()-1) + ".txt";
                 AlertDialog.Builder builder = new AlertDialog.Builder(DiaryList.this);
                 builder.setTitle("일기 삭제").setMessage("정말로 일기를 삭제하시겠습니까?");
                 builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {

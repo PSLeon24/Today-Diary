@@ -32,7 +32,7 @@
         android:id="@+id/contentsList"
         android:textColor="@color/black"
         android:textSize="15dp"
-        android:text="9시 강의를 갔다. C언어였다. 기말과제가 팀플이라고 한다. 우울하다. 9시 강의를 갔다. C언어였다. 기말과제가 팀플이라고 한다. 우울하다." />
+        android:text="일기 내용" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

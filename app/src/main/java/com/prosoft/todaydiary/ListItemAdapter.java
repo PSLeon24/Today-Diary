@@ -47,7 +47,6 @@ public class ListItemAdapter extends BaseAdapter {
         contentsList.setText(listItem.getContentsList());
 
         return convertView;
-
     }
 
     public void addItem(ListItem item) {

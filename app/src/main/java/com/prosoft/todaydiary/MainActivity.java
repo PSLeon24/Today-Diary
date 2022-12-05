@@ -119,10 +119,8 @@ public class MainActivity extends AppCompatActivity {
                 tv_text2.setText((month + 1) + "월 " + day + "일");
                 tv_text3.setText(year + "년 " + (month+1) + "월 " + day + "일");
                 fileName = Integer.toString(year) + Integer.toString(month+1) + Integer.toString(day) + ".txt";
-                //Toast.makeText(getApplicationContext(),fileName,Toast.LENGTH_SHORT).show();
                 String str = readDiary(fileName);
                 contextDiary.setText(str);
-                //checkedDay(year, month, day);
             }
         });
 
@@ -181,8 +179,6 @@ public class MainActivity extends AppCompatActivity {
                 newWrite.setText("읽기 & 수정");
             }
         } catch (Exception e) { // UnsupportedEncodingException , FileNotFoundException , IOException
-            // 없어서 오류가 나면 일기가 없는 것 -> 일기를 쓰게 한다.
-            //Toast.makeText(getApplicationContext(), "작성한 일기가 없습니다!", Toast.LENGTH_SHORT).show();
             contextDiary.setText("");
             newWrite.setText("새 일기 작성하기");
             e.printStackTrace();

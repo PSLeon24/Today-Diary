@@ -1,5 +1,5 @@
 # Today-Diary
-오늘, 하루 앱 개발 일지
+<img src="https://github.com/PSLeon24/Today-Diary/assets/59058869/928e1d33-dffd-42de-a246-78a9c3999fe9" height="300px"/>&nbsp;&nbsp;일기 앱 <b>'오늘, 하루'</b> 개발 일지<br>
 시연 영상 보기: https://tv.kakao.com/v/440038661
 
 ## I. 개발 앱 선정 및 선정 이유
